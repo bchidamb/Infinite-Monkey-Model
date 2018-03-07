@@ -22,18 +22,20 @@ def model(n_lstm, shape_in, n_out):
     return model
     
 
-def generate(model, n, seed):
+def generate(model, n, seed, temp=1.0):
     '''
     Arguments:
         model - a trained Keras Sequential model for sequence prediction
         n - the length of the generated sample (not including seed length)
         seed - the seed to initialize the model
+        temp - temperature parameter which controls the variance of the output
     
     Return:
         gen - The generated string (including seed)
     '''
     def sample(pdf):
-        return np.random.choice(np.arange(len(pdf)), p=np.array(pdf) / np.sum(pdf))
+        exp_pdf = np.exp(np.log(pdf) / temp)
+        return np.random.choice(np.arange(len(pdf)), p=np.array(exp_pdf) / np.sum(exp_pdf))
     
     gen = [int_to_onehot(ord(c), 128) for c in seed]
     window = len(seed)
@@ -41,17 +43,38 @@ def generate(model, n, seed):
         prev = np.array([gen[-window:]])
         gen.append(int_to_onehot(sample(model.predict(prev)[0]), 128))
         
-    print([c for c in gen if 1 not in c])
+    # print([c for c in gen if 1 not in c])
     return ''.join([chr(c.index(1)) for c in gen if 1 in c])
 
+    
+def perplexity(model, X, Y):
+    '''
+    Arguments:
+        model - the trained Keras Sequential model to be evaluated
+        X, Y - a test-set of onehot encoded sequences
+    
+    Return:
+        the perplexity metric on this dataset, defined as
+        PP(w) = (product_i of P(w_i)) ^ (-1/N)
+    '''
+    P = np.array([max(row) for row in (model.predict(X) * Y) if max(row) > 0.0])
+    return np.prod(P ** (-1 / len(P)))
+    
     
 X, Y = character_onehot(40, 5)
 print('no. examples:', len(Y))
 
 character_model = model(100, np.shape(X[0]), 128)
-character_model.fit(X, Y, epochs=20, batch_size=5)
+character_model.fit(X, Y, epochs=50, batch_size=50)
+
+print('Perplexity score:', perplexity(character_model, X, Y))
 
 seed = "shall i compare thee to a summer’s day?\n"
+temps = [0.25, 0.75, 1.0, 1.5]
 
-print('Generating string...')
-print(generate(character_model, 100, seed))
+print('Generating strings...')
+for t in temps:
+    print('Temperature', t)
+    print(generate(character_model, 500, seed, temp=t))
+
+
