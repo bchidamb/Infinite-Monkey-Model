@@ -61,7 +61,7 @@ def stripPunctuation(string):
 
     return string1
 
-# account for rhymes 
+# account for rhymes
 def advanced_tokenized():
     '''
     Counts the number of unique words in a given input text
@@ -143,24 +143,26 @@ def advanced_tokenized():
     #print('len(word_list)', len(word_list), word_list[0])
     #print('len(seqs)', len(seqs), seqs[0])
     print('list of rhymes:', len(list_rhymes))
-    for line in list_rhymes:
-        print([word_list[x] for x in line])
-        print(line)
+    #set_rhymes = []
+    #for line in list_rhymes:
+        #print([word_list[x] for x in line])
+        #set_rhymes.append([word_list[x] for x in line])
+        #print(line)
 
-    return word_list, seqs, syllable_counts
+    return word_list, seqs, syllable_counts, list_rhymes
 
 
 # go through all of the rhymes that we've found so far total and add our rhymes to them
 # we're adding rhymes to list_rhymes
 def joinRhymeFamily(list_rhymes, rhymesLine):
-    
+
     for rhymeLocal in rhymesLine:
         flagRhyme = True # if we didn't find a rhyme family
         for rhymeTotal in list_rhymes:
             if rhymeLocal[0] in rhymeTotal and rhymeLocal[1] not in rhymeTotal:
                 rhymeTotal.append(rhymeLocal[1])
                 flagRhyme = False
-                
+
             elif rhymeLocal[1] in rhymeTotal and rhymeLocal[0] not in rhymeTotal:
                 rhymeTotal.append(rhymeLocal[0])
                 flagRhyme = False
@@ -177,16 +179,16 @@ def joinRhymeFamily(list_rhymes, rhymesLine):
     #print('joined rhyme fam')
     return list_rhymes, rhymesLine
 
-# the point of this is to make sure that we consolidate all of 
+# the point of this is to make sure that we consolidate all of
 # the rhyme families in discovery of new similar rhymes
-# check to make sure that we don't have two different lists 
+# check to make sure that we don't have two different lists
 # with the same rhyme family
 def consolidateRhymeFamily(list_rhymes):
 
     tempList_rhymes = []
-    # keeps track of what indices we've been through in 
+    # keeps track of what indices we've been through in
     # list_rhymes and where they are in tempList_rhymes
-    indicDict = {} 
+    indicDict = {}
     for i in range(len(list_rhymes) -1):
         for j in range(1, len(list_rhymes)):
             flagGetOuti = False
@@ -216,7 +218,7 @@ def consolidateRhymeFamily(list_rhymes):
                         if len(uniqueEl) != len(set(uniqueEl)):
                             print('2 repeats occurred here')
                             print('uniqueEl', uniqueEl)
-                        
+
                     # updating element in tempList_rhymes, with i
                     elif j in indicDict and i not in indicDict:
                         diff_sets = set(tempList_rhymes[indicDict[j]]) - set(list_rhymes[i])

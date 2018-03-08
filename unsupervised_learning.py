@@ -19,8 +19,8 @@ def unsupervised_learning(n_states, N_iters):
     '''
     #genres, genre_map = Utility.load_ron_hidden()
 
-    word_list, seqs, syllable_counts = basic_tokenized()
-    word_list, seqs, syllable_counts = advanced_tokenized()
+    #word_list, seqs, syllable_counts = basic_tokenized()
+    word_list, seqs, syllable_counts, set_rhymes = advanced_tokenized()
     print('number unique words:', len(word_list))
     #print('first 5 lines:', seqs[:100])
     #print(syllable_counts['thy'])
@@ -31,24 +31,27 @@ def unsupervised_learning(n_states, N_iters):
                         of lists of variable length, consisting of integers
                         ranging from 0 to D - 1. In other words, a list of lists.
     """
+    seqs.reverse()
     HMM = unsupervised_HMM(seqs, len(word_list), n_states, N_iters)
 
     for i in range(14):
-        generate_phrase(HMM, word_list, syllable_counts)
+        generate_phrase(HMM, word_list, syllable_counts, set_rhymes)
 
+    #print(HMM.sonnet)
 
-def generate_phrase(HMM, word_list, syllable_counts):
+def generate_phrase(HMM, word_list, syllable_counts, set_rhymes):
 
     # Naive Method
     #emission, lists = HMM.generate_emission(10)
 
     # With syllable counting
-    emission, lists = HMM.generate_line(word_list, syllable_counts)
+    emission, lists = HMM.generate_line(word_list, syllable_counts, set_rhymes)
     #print(emission)
 
     line = []
     for aNum in emission:
         line.append(word_list[aNum])
+    line.reverse()
     phrase = " ".join(line)
     print(phrase)
 

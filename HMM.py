@@ -53,6 +53,9 @@ class HiddenMarkovModel:
         self.O = O
         self.A_start = [1. / self.L for _ in range(self.L)]
 
+        # New variable to hold the rhyme scheme of a generated sonnet
+        self.sonnet = []
+
 
     def viterbi(self, x):
         '''
@@ -433,7 +436,7 @@ class HiddenMarkovModel:
     def removePunctuation(self, word, syllable_counts):
         # Removes the punctuation from a word
         rem_word = ""
-        punc = ',.:;?!'
+        punc = ',.:;?!()'
         for char in word:
             if not char in punc:
                 rem_word += char
@@ -464,7 +467,10 @@ class HiddenMarkovModel:
             # Check if satisfies end criteria
             if syllable[0] == "E":
                 syl_length = int(syllable[1:])
-                if num_syllables + syl_length == M:
+                #if num_syllables + syl_length == M:
+
+                # Handles reversal case of last word
+                if num_syllables == 0:
                     return True, int(syl_length)
             else:
                 if num_syllables + int(syllable) <= M:
@@ -472,7 +478,38 @@ class HiddenMarkovModel:
 
         return False, 0
 
-    def generate_line(self, word_list, syllable_counts, M=10):
+    def choose_rhyme_word(self, rhyme_list):
+
+        # Need to check if it rhymes with the previous word
+        sonnet_line = len(self.sonnet)
+        rhyme_word = ""
+        if sonnet_line == 13:
+            rhyme_word = self.sonnet[-1][0]
+        elif sonnet_line % 4 == 2 or sonnet_line % 4 == 3:
+            rhyme_word = self.sonnet[sonnet_line-2][0]
+
+        if not rhyme_word == "":
+
+            #print("Want to rhyme with: ", rhyme_word)
+
+            # only iterate through words that rhyme
+            # Find that list, choose a word that is not itself
+            for rcluster in rhyme_list:
+                if rhyme_word in rcluster:
+                    # Pick a random word and return
+                    new_word = rhyme_word
+                    while new_word == rhyme_word:
+                        new_word = random.choice(rcluster)
+                    #print("Using: ", new_word, "to rhyme with")
+                    return new_word
+
+        else:
+            rcluster = random.choice(rhyme_list)
+            rhyme_word = random.choice(rcluster)
+            #print("Creating new rhyme using:", rhyme_word)
+            return rhyme_word
+
+    def generate_line(self, word_list, syllable_counts, rhyme_list, M=10):
         '''
         Generates an emission of length M, assuming that the starting state
         is chosen uniformly at random.
@@ -492,7 +529,14 @@ class HiddenMarkovModel:
         state = random.choice(range(self.L))
         states = []
 
+        # Here first choose the rhyming word first
+        # Based on the previousl ines
         num_syllables = 0
+        rhyme_word = self.choose_rhyme_word(rhyme_list)
+        emission.append(rhyme_word)
+        dum, syl_count = self.validWord(num_syllables, syllable_counts[word_list[rhyme_word]], M)
+        num_syllables += syl_count
+
         while not num_syllables == M:
             # Append state.
             states.append(state)
@@ -533,6 +577,13 @@ class HiddenMarkovModel:
 
             next_state -= 1
             state = next_state
+
+        #line = []
+        #for aNum in emission:
+        #    line.append(word_list[aNum])
+        #line.reverse()
+
+        self.sonnet.append(emission)
 
         return emission, states
 
