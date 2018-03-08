@@ -22,6 +22,7 @@ def unsupervised_learning(n_states, N_iters):
     word_list, seqs, syllable_counts = basic_tokenized()
     print('number unique words:', len(word_list))
     #print('first 5 lines:', seqs[:100])
+    #print(syllable_counts['thy'])
 
     # Train the HMM.
     """
@@ -32,11 +33,12 @@ def unsupervised_learning(n_states, N_iters):
     HMM = unsupervised_HMM(seqs, len(word_list), n_states, N_iters)
 
     for i in range(14):
-        generate_phrase(HMM, word_list)
+        generate_phrase(HMM, word_list, syllable_counts)
 
 
-def generate_phrase(HMM, word_list):
-    emission, lists = HMM.generate_emission(10)
+def generate_phrase(HMM, word_list, syllable_counts):
+    #emission, lists = HMM.generate_emission(10)
+    emission, lists = HMM.generate_line(word_list, syllable_counts)
     #print(emission)
 
     line = []

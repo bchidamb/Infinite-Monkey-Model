@@ -41,7 +41,7 @@ def basic_tokenized():
     # Create a list of words and their possible syllable counts
     f2 = open('data/Syllable_dictionary.txt', 'r')
     syllable_counts = {}
-    for line in f:
+    for line in f2:
         raw = line.strip().split()
         #word_index = word_list.index(raw[0])
         syllable_counts[raw[0]] = raw[1:]

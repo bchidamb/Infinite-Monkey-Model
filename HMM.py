@@ -430,8 +430,49 @@ class HiddenMarkovModel:
 
         return emission, states
 
+    def removePunctuation(self, word, syllable_counts):
+        # Removes the punctuation from a word
+        rem_word = ""
+        punc = ',.:;?!'
+        for char in word:
+            if not char in punc:
+                rem_word += char
 
-    def generate_phrase(self, M, word_list, syllable_counts):
+        if rem_word in syllable_counts:
+            return rem_word
+        else:
+            apos = "'"
+            real_rem_word = ""
+            for char in rem_word:
+                if not char == apos:
+                    real_rem_word += char
+            return real_rem_word
+
+
+    def validWord(self, num_syllables, curr_word_syllables, M):
+        '''
+        Determines if a given word fits within the syllable count
+        of the line.
+
+        Outputs:
+        valid:  Whether the given word is valid for the line or not
+        syls:   The number of syllables that will be added to the line, for success
+        '''
+
+        possible_syllables = []
+        for syllable in curr_word_syllables:
+            # Check if satisfies end criteria
+            if syllable[0] == "E":
+                syl_length = int(syllable[1:])
+                if num_syllables + syl_length == M:
+                    return True, int(syl_length)
+            else:
+                if num_syllables + int(syllable) <= M:
+                    return True, int(syllable)
+
+        return False, 0
+
+    def generate_line(self, word_list, syllable_counts, M=10):
         '''
         Generates an emission of length M, assuming that the starting state
         is chosen uniformly at random.
@@ -451,20 +492,36 @@ class HiddenMarkovModel:
         state = random.choice(range(self.L))
         states = []
 
-        for t in range(M):
+        num_syllables = 0
+        while not num_syllables == M:
             # Append state.
             states.append(state)
 
             # Sample next observation.
-            rand_var = random.uniform(0, 1)
+            curr_word_syllables = [M+1]
             next_obs = 0
 
-            while rand_var > 0:
-                rand_var -= self.O[state][next_obs]
-                next_obs += 1
+            valid = False
+            syls = 0
+            while not valid:
+                rand_var = random.uniform(0, 1)
+                next_obs = 0
+
+                while rand_var > 0:
+                    rand_var -= self.O[state][next_obs]
+                    next_obs += 1
+
+                # since went negative, want the syllables of observation/
+                # word before this one
+                curr_word = self.removePunctuation(word_list[next_obs-1].lower(), syllable_counts)
+                curr_word_syllables = syllable_counts[curr_word]
+                valid, syls = self.validWord(num_syllables, curr_word_syllables, M)
 
             next_obs -= 1
             emission.append(next_obs)
+
+            # Increase the number of syllables as necessary
+            num_syllables += syls
 
             # Sample next state.
             rand_var = random.uniform(0, 1)
