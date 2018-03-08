@@ -541,6 +541,19 @@ class HiddenMarkovModel:
             # Append state.
             states.append(state)
 
+            #####
+            # Sample next state.
+            rand_var = random.uniform(0, 1)
+            next_state = 0
+
+            while rand_var > 0:
+                rand_var -= self.A[state][next_state]
+                next_state += 1
+
+            next_state -= 1
+            state = next_state
+            #####
+
             # Sample next observation.
             curr_word_syllables = [M+1]
             next_obs = 0
@@ -567,16 +580,7 @@ class HiddenMarkovModel:
             # Increase the number of syllables as necessary
             num_syllables += syls
 
-            # Sample next state.
-            rand_var = random.uniform(0, 1)
-            next_state = 0
 
-            while rand_var > 0:
-                rand_var -= self.A[state][next_state]
-                next_state += 1
-
-            next_state -= 1
-            state = next_state
 
         #line = []
         #for aNum in emission:
