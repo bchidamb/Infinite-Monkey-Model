@@ -49,9 +49,12 @@ def generate_phrase(HMM, word_list, syllable_counts, set_rhymes):
     #print(emission)
 
     line = []
-    for aNum in emission:
+    for i in range(len(emission)):
+        aNum = emission[i]
         line.append(word_list[aNum])
     line.reverse()
+    line[0] = line[0].capitalize()
+
     phrase = " ".join(line)
     print(phrase)
 

@@ -571,8 +571,9 @@ class HiddenMarkovModel:
                 # since went negative, want the syllables of observation/
                 # word before this one
                 curr_word = self.removePunctuation(word_list[next_obs-1].lower(), syllable_counts)
-                curr_word_syllables = syllable_counts[curr_word]
-                valid, syls = self.validWord(num_syllables, curr_word_syllables, M)
+                if curr_word in syllable_counts:
+                    curr_word_syllables = syllable_counts[curr_word]
+                    valid, syls = self.validWord(num_syllables, curr_word_syllables, M)
 
             next_obs -= 1
             emission.append(next_obs)
