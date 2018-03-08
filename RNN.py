@@ -3,9 +3,10 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
 from process_data import *
+from time import time
 
 
-def model(n_lstm, shape_in, n_out):
+def base_model(n_lstm, shape_in, n_out):
     '''
     Arguments:
         n_lstm  - the number of LSTM units in the first layer
@@ -17,6 +18,26 @@ def model(n_lstm, shape_in, n_out):
     '''
     model = Sequential()
     model.add(LSTM(n_lstm, input_shape=shape_in))
+    model.add(Dense(n_out, activation='softmax'))
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+    return model
+    
+    
+def multilayer_model(n_lstm, shape_in, n_out):
+    '''
+    Arguments:
+        n_lstm  - the number of LSTM units in each hidden layer
+        shape_in - the input shape of the data (2-tuple)
+        n_out   - the number of categories in the output
+    
+    Return:
+        model - A fresh Keras Sequential model for training on sequence data
+        Note: this model has 3 hidden LSTM layers
+    '''
+    model = Sequential()
+    model.add(LSTM(n_lstm, input_shape=shape_in, return_sequences=True))
+    model.add(LSTM(n_lstm, return_sequences=True))
+    model.add(LSTM(n_lstm))
     model.add(Dense(n_out, activation='softmax'))
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     return model
@@ -61,13 +82,42 @@ def perplexity(model, X, Y):
     return np.prod(P ** (-1 / len(P)))
     
     
-X, Y = character_onehot(40, 5)
+X, Y = character_onehot(40, 3)
+X_test, Y_test = character_onehot(40, 3, 1)
 print('no. examples:', len(Y))
 
-character_model = model(100, np.shape(X[0]), 128)
-character_model.fit(X, Y, epochs=50, batch_size=50)
+'''
+Epochs = [200, 500, 1000, 2000]
+Batch_sizes = [200, 500, 1000, 2000]
 
-print('Perplexity score:', perplexity(character_model, X, Y))
+for ep, bs in zip(Epochs, Batch_sizes):
+
+    start = time()
+
+    character_model = model(100, np.shape(X[0]), 128)
+    character_model.fit(X, Y, epochs=ep, batch_size=bs, verbose=0)
+    
+    end = time()
+
+    print('Configuration: %d epochs, %d batch size' % (ep, bs))
+    print('Training time: %.3f' % (end - start))
+    print('Perplexity score:', perplexity(character_model, X, Y), '\n')
+
+'''
+ep = 125
+bs = 100
+
+start = time()
+
+character_model = multilayer_model(100, np.shape(X[0]), 128)
+character_model.fit(X, Y, epochs=ep, batch_size=bs, verbose=0)
+
+end = time()
+
+print('Configuration: %d epochs, %d batch size' % (ep, bs))
+print('Training time: %.3f' % (end - start))
+print('Train Perplexity score:', perplexity(character_model, X, Y))
+print('Test Perplexity score:', perplexity(character_model, X_test, Y_test), '\n')
 
 seed = "shall i compare thee to a summer’s day?\n"
 temps = [0.25, 0.75, 1.0, 1.5]

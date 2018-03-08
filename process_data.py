@@ -241,11 +241,13 @@ def int_to_onehot(n, n_max):
     # Return n encoded as a one-hot vector of length n_max.
     return [0 if n != i else 1 for i in range(n_max)]
 
-def character_onehot(n=40, s=5):
+def character_onehot(n=40, s=5, ds=0):
     '''
     Arguments:
         n - the number of characters per example
         s - the spacing between successive examples
+        ds - offset of each example (change from default to obtain unique validation sets)
+        Note: 0 <= ds < s
 
     Return:
         X - A list of examples of length n
@@ -270,8 +272,8 @@ def character_onehot(n=40, s=5):
 
     # Generate samples of size n where successive samples are shifted by s
     for i in range(len(data) // s):
-        if s * i + n < len(data):
-            X.append([int_to_onehot(a, 128) for a in ascii_values[s*i:s*i+n]])
-            Y.append(int_to_onehot(ascii_values[s*i+n], 128))
+        if s * i + n + ds < len(data):
+            X.append([int_to_onehot(a, 128) for a in ascii_values[s*i+ds:s*i+n+ds]])
+            Y.append(int_to_onehot(ascii_values[s*i+n+ds], 128))
 
     return np.array(X), np.array(Y)

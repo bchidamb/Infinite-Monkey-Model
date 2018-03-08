@@ -1,0 +1,158 @@
+18850/18850 [==============================] - 37s 2ms/step - loss: 3.1663 - acc: 0.1668
+Epoch 2/50
+18850/18850 [==============================] - 35s 2ms/step - loss: 2.9284 - acc: 0.1985
+Epoch 3/50
+18850/18850 [==============================] - 34s 2ms/step - loss: 2.6449 - acc: 0.2817
+Epoch 4/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 2.4658 - acc: 0.3056
+Epoch 5/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 2.3626 - acc: 0.3223
+Epoch 6/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 2.3016 - acc: 0.3330
+Epoch 7/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 2.2534 - acc: 0.3431
+Epoch 8/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 2.2159 - acc: 0.3535
+Epoch 9/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 2.1797 - acc: 0.3640
+Epoch 10/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 2.1509 - acc: 0.3728
+Epoch 11/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 2.1235 - acc: 0.3813
+Epoch 12/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 2.1004 - acc: 0.3860
+Epoch 13/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 2.0767 - acc: 0.3929
+Epoch 14/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 2.0575 - acc: 0.3960
+Epoch 15/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 2.0386 - acc: 0.3996
+Epoch 16/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 2.0192 - acc: 0.4020
+Epoch 17/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 2.0036 - acc: 0.4065
+Epoch 18/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.9881 - acc: 0.4101
+Epoch 19/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.9718 - acc: 0.4126
+Epoch 20/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.9582 - acc: 0.4148
+Epoch 21/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.9445 - acc: 0.4203
+Epoch 22/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.9304 - acc: 0.4265
+Epoch 23/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.9187 - acc: 0.4270
+Epoch 24/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.9215 - acc: 0.4270
+Epoch 25/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.9036 - acc: 0.4313
+Epoch 26/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.8915 - acc: 0.4329
+Epoch 27/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.8732 - acc: 0.4393
+Epoch 28/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.8566 - acc: 0.4415
+Epoch 29/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.8435 - acc: 0.4441
+Epoch 30/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.8293 - acc: 0.4484
+Epoch 31/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.8188 - acc: 0.4527
+Epoch 32/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.8059 - acc: 0.4580
+Epoch 33/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.7935 - acc: 0.4585
+Epoch 34/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.7840 - acc: 0.4603
+Epoch 35/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.7745 - acc: 0.4625
+Epoch 36/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.7636 - acc: 0.4650
+Epoch 37/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.7511 - acc: 0.4675
+Epoch 38/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.7426 - acc: 0.4697
+Epoch 39/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.7326 - acc: 0.4739
+Epoch 40/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.7251 - acc: 0.4751
+Epoch 41/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.7124 - acc: 0.4791
+Epoch 42/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.7053 - acc: 0.4805
+Epoch 43/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.6934 - acc: 0.4816
+Epoch 44/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.6833 - acc: 0.4865
+Epoch 45/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.6749 - acc: 0.4882
+Epoch 46/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.6655 - acc: 0.4912
+Epoch 47/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.6569 - acc: 0.4922
+Epoch 48/50
+18850/18850 [==============================] - 36s 2ms/step - loss: 1.6474 - acc: 0.4975
+Epoch 49/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.6389 - acc: 0.4969
+Epoch 50/50
+18850/18850 [==============================] - 37s 2ms/step - loss: 1.6288 - acc: 0.5015
+Perplexity score: 4.97469040569
+Generating strings...
+Temperature 0.25
+shall i compare thee to a summers day?
+Whin the self the sear the will I far his,
+And shat the will my love the bear show dear,
+The will a dis self the beauty sill me,
+The bainted thou whis thou the will me,
+The fair the self the wall my love the will grace,
+The beauty the word that the self and thee,
+And thou art thou when the self the wort,
+The self the worth that the will my self,
+The will I sand the wair the will me thee,
+And the sell my love the beauty be though dith,
+Whis the sear with my love the worme that,
+That thou art the
+Temperature 0.75
+shall i compare thee to a summers day?
+  They thou the, to the burs though whim with mine,
+By with of thou splove but heanus eme,
+Hire that show men the worres they my stored,
+And is plaise that disthing of bess, the wald,
+Be marest that shough my uthing hel grop,
+Whin my love the blent no doul I al ar stald
+Ale my hand, of the mep you hing price,
+When hear se frow the brould aglours I mage.
+Thou and the sull gite the sive that I trres,
+And shat that shat this, when uperes love dith dim nond
+The werd I more I mandered,
+Ag thy sourt t
+Temperature 1.0
+shall i compare thee to a summers day?
+Fom I 'st wift thou bair of respecees,
+Kud fill conta tile my diving to mane,
+  To I lfor shome rive youl eave itle's I but,
+The waltect him joy ffomes anct compie,
+And suenrust dinging mest is malie,
+Braus, of shelied chweed level ais in,
+Thane my love, no mewe wheck And whece thaigh on,o gets lover,
+To whel with me mine a pore in geing,
+But o' to though cume ag, theius tith minege) in,
+  Eray love beass oun your soom and thy ape,
+Tile hast rodise is is twisnds have shad,
+Wheching ton himide wh
+Temperature 1.5
+shall i compare thee to a summers day?
+Antute, for kyoal somiry alaite unjebe.
+Yot dThes hen wiced brtunme'st prove tho sthis.
+To shingsoono raimy be of deimstnan.
+Ontey Imor pne toire
+ pgecisugat ! The fall's tan his whctir't,
+Why dear afarthcy fum Mutt thas hin hy lime,
+Elvainys my lo enblivy's  hove thes ingeed-spacq!sejl,
+Frremus, which thos tol my wrecent noac,
+Tlledd not scows cobr, I It M'strest in time soden,
+Ye, thou lovantelle whymjarn oTe won, bust?
+Thasu mnkigvecr
+  Os theidtlived, pors repat,
+Fhop teth lorr youd oo ales

@@ -1,0 +1,28 @@
+Configuration: 1 epochs, 1 batch size
+Training time: 1584.593
+Perplexity score: 8.00032140204
+
+Configuration: 2 epochs, 2 batch size
+Training time: 1585.396
+Perplexity score: 7.35463879509
+
+Configuration: 5 epochs, 5 batch size
+Training time: 1503.119
+Perplexity score: 6.75933723909
+
+Configuration: 10 epochs, 10 batch size
+Training time: 1579.189
+Perplexity score: 6.27220773374
+
+Configuration: 20 epochs, 20 batch size
+Training time: 1777.201
+Perplexity score: 5.63287681593
+
+Configuration: 50 epochs, 50 batch size
+Training time: 1776.320
+Perplexity score: 5.05585877209
+
+Configuration: 100 epochs, 100 batch size
+Training time: 2013.601
+Perplexity score: 4.12443980303
+
