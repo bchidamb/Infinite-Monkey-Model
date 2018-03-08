@@ -1,0 +1,62 @@
+Configuration: 125 epochs, 100 batch size
+Training time: 11781.609
+Train Perplexity score: 3.06537201856
+Test Perplexity score: 7.37393507653
+
+Generating strings...
+Temperature 0.25
+shall i compare thee to a summers day?
+The have when the self-ho loss the siend,
+And that then thou shall your hast the selfre,
+That wit in the dear part, that thou with glown beauty,
+And my love the world the selfons then thy give,
+And so shast that thou steal the sel the beld,
+And still the world an the self-will,
+And then the self-his spenter wher, to sing:
+The rad is beauty my love to my see, then,
+That in the with thee wit the will self-hears,
+And then thy soul the self-will with selfined,
+And thou art the love the sel in the be
+Temperature 0.75
+shall i compare thee to a summers day?
+Rething ady then love that most make
+Save so dabe's every belided the trepe,
+And then may despete time as loves by is,
+As lenl thene of the tritter were mine,
+And you with spove's gried that a fart this hes:
+Mage in fair is sworts of thy see,
+To swyme:
+Blakve shy were of spord the day that is bed,
+The one, I tower furn behory my fair greast,
+The reasured want the leam then likit as penth,
+Then thy hall of teart thou wantif his thee,
+  Her-ell, love their grieve of youth,
+And noth my least thine
+Temperature 1.0
+shall i compare thee to a summers day?
+Yet than is the igainsl's so world hour sep,
+  I not to relemd,
+That whereon that for were me the gead will,
+Against the though the grazit my is,
+As let mut thou have thee tormour rack,
+And lois by those of all which dobanders,
+Whimst think do Eope ho long your dis.
+  Leet your hast thy thou thee to hore his deem, wime
+May then were make it withal wit it imbeced:
+But then no my sights of flo, you wills no desered dow,
+Make love pim of niscive thy fane on belied,
+  Whis sainy a battort think I go
+Temperature 1.5
+shall i compare thee to a summers day?
+Thorgamo I mett, I shoud ich mostilslo,
+And wher I'll sesping sups a werd's am. holm) wore!
+Y bm withat trracapting attrend wwymend youp,
+Foit I canse dave and fnome nor your
+Lotkee rhow astalipen, actenot thim ilque,
+Reking worghtsaem's do nich eid, so your his myt'n rlapted hyit flead paous of
+Ley,
+  Thats' pinfais sicw, I llaysming wart'st,
+On with tingles one igh mine I at adwiscyllrescryye?
+When trunce ('fteaed ext confeos bostty brove
+Olitipne-werp,
+The hist of adpend'wy blaint you eqaiin,
