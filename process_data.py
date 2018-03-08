@@ -29,19 +29,23 @@ def basic_tokenized():
         if len(raw) < 2:
             continue
             # If we encounter a new word for the first time, add it to word_list
-        
+
         seqs.append([])
         for word in raw:
             if word not in word_list:
                 word_list.append(word)
             seqs[-1].append(word_list.index(word))
+    f.close()
 
-    # Pad sequences that are less than the actual length
-    #max_length = max([len(seq) for seq in seqs])
-    #seqs_padded = [seq + [-1] * (max_length - len(seq)) for seq in seqs]
-    #seqs = seqs[1:]
-
-    return word_list, seqs
+    # Create a list of words and their possible syllable counts
+    f2 = open('data/Syllable_dictionary.txt', 'r')
+    syllable_counts = {}
+    for line in f:
+        raw = line.strip().split()
+        #word_index = word_list.index(raw[0])
+        syllable_counts[raw[0]] = raw[1:]
+            
+    return word_list, seqs, syllable_counts
 
 
 def int_to_onehot(n, n_max):
