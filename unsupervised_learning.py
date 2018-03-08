@@ -20,6 +20,7 @@ def unsupervised_learning(n_states, N_iters):
     #genres, genre_map = Utility.load_ron_hidden()
 
     word_list, seqs, syllable_counts = basic_tokenized()
+    word_list, seqs, syllable_counts = advanced_tokenized()
     print('number unique words:', len(word_list))
     #print('first 5 lines:', seqs[:100])
     #print(syllable_counts['thy'])
