@@ -6,7 +6,7 @@
 # Description:  Set 5
 ########################################
 
-from HMM import unsupervised_HMM
+from HMM import *
 from process_data import *
 
 def unsupervised_learning(n_states, N_iters):
@@ -21,7 +21,7 @@ def unsupervised_learning(n_states, N_iters):
 
     word_list, seqs = basic_tokenized()
     print('number unique words:', len(word_list))
-    print('first 5 lines:', seqs[:100])
+    #print('first 5 lines:', seqs[:100])
 
     # Train the HMM.
     """
@@ -31,7 +31,19 @@ def unsupervised_learning(n_states, N_iters):
     """
     HMM = unsupervised_HMM(seqs, len(word_list), n_states, N_iters)
 
-    
+    for i in range(14):
+        generate_phrase(HMM, word_list)
+
+
+def generate_phrase(HMM, word_list):
+    emission, lists = HMM.generate_emission(10)
+    #print(emission)
+
+    line = []
+    for aNum in emission:
+        line.append(word_list[aNum])
+    phrase = " ".join(line)
+    print(phrase)
 
     # Print the transition matrix.
     # print("Transition Matrix:")
@@ -55,10 +67,10 @@ if __name__ == '__main__':
     print('')
     print('')
     print('#' * 70)
-    print("{:^70}".format("Running Code For Question 2D"))
+    print("{:^70}".format("Running Code For Basic HMM"))
     print('#' * 70)
     print('')
     print('')
 
-    unsupervised_learning(4, 100)
+    HMM = unsupervised_learning(4, 100)
     # Then predict some stuff using the observation and transition matrices

@@ -578,7 +578,4 @@ def unsupervised_HMM(X, D, n_states, N_iters):
     HMM = HiddenMarkovModel(A, O)
     HMM.unsupervised_learning(X, N_iters)
 
-    emission, lists = HMM.generate_emission(20)
-    print(emission)
-
     return HMM
