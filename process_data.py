@@ -35,7 +35,8 @@ def basic_tokenized():
             if word not in word_list:
                 word_list.append(word)
             seqs[-1].append(word_list.index(word))
-    f.close()
+
+    #f.close()
 
     # Create a list of words and their possible syllable counts
     f2 = open('data/Syllable_dictionary.txt', 'r')
@@ -44,7 +45,7 @@ def basic_tokenized():
         raw = line.strip().split()
         #word_index = word_list.index(raw[0])
         syllable_counts[raw[0]] = raw[1:]
-            
+
     return word_list, seqs, syllable_counts
 
 
