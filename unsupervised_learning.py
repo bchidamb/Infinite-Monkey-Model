@@ -37,7 +37,11 @@ def unsupervised_learning(n_states, N_iters):
 
 
 def generate_phrase(HMM, word_list, syllable_counts):
+
+    # Naive Method
     #emission, lists = HMM.generate_emission(10)
+
+    # With syllable counting
     emission, lists = HMM.generate_line(word_list, syllable_counts)
     #print(emission)
 
