@@ -326,6 +326,7 @@ class HiddenMarkovModel:
             for x in X:
                 M = len(x)
                 # Compute the alpha and beta probability vectors.
+                #print(x)
                 alphas = self.forward(x, normalize=True)
                 betas = self.backward(x, normalize=True)
 
@@ -531,7 +532,7 @@ def supervised_HMM(X, Y):
     return HMM
 
 
-def unsupervised_HMM(X, n_states, N_iters):
+def unsupervised_HMM(X, D, n_states, N_iters):
     '''
     Helper function to train an unsupervised HMM. The function determines the
     number of unique observations in the given data, initializes
@@ -549,13 +550,13 @@ def unsupervised_HMM(X, n_states, N_iters):
     '''
 
     # Make a set of observations.
-    observations = set()
-    for x in X:
-        observations |= set(x)
+    # observations = set()
+    # for x in X:
+    #     observations |= set(x)
 
     # Compute L and D.
     L = n_states
-    D = len(observations)
+    #D = len(observations)
 
     # Randomly initialize and normalize matrices A and O.
     A = [[random.random() for i in range(L)] for j in range(L)]
@@ -576,5 +577,8 @@ def unsupervised_HMM(X, n_states, N_iters):
     # Train an HMM with unlabeled data.
     HMM = HiddenMarkovModel(A, O)
     HMM.unsupervised_learning(X, N_iters)
+
+    emission, lists = HMM.generate_emission(20)
+    print(emission)
 
     return HMM
