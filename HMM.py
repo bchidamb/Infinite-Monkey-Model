@@ -529,7 +529,7 @@ class HiddenMarkovModel:
             return np.random.choice(np.arange(len(pdf)), p=np.array(pdf) / np.sum(pdf))
         
         # Sample the punctuation first
-        punctuation = ['.', '!', ',', '?', ':', ';', '(', ')']
+        punctuation = ['.', '!', ',', '?', ':', ';', '(', ')', '#']
 
         state = random.choice(range(self.L))
         states = []

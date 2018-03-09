@@ -61,6 +61,13 @@ def stripBadPunctuation(string):
 
     return string1
 
+# we want to know if the last character is not punctuation, # indicates end with no punctuation
+def customStrip(string, punctuation):
+    if string[-1] not in punctuation:
+        return string + '#'
+    return string
+    
+
 # account for rhymes
 def advanced_tokenized():
     '''
@@ -80,9 +87,10 @@ def advanced_tokenized():
     
     punctuation = ['.', '!', ',', '?', ':', ';', '(', ')'] # not accounting for single quotes
     def ignore_punctuation(lst):
-        return [i for i in lst if i >= len(punctuation)]
+        return [i for i in lst if i >= len(punctuation)+1] # +1 because '#' added to end, stands for end w/o punctuation
         
     word_list = punctuation[:]
+    word_list.append('#')
     seqs = []
     list_rhymes = [] # list of lists, such that each list has rhymes
     # indices for the rhyme scheme that shakespeare uses:
@@ -96,10 +104,11 @@ def advanced_tokenized():
     
     for line in f:
 
-        raw = stripBadPunctuation(line).strip().split()
+        #raw = stripBadPunctuation(line).strip().split()
+        raw = customStrip(stripBadPunctuation(line), punctuation).split()
             
         # Skip lines that aren't actually part of the Sonnets
-        if len(raw) < 2:
+        if len(raw) < 3:
             # if we get enough lines for our sonnet:
             if countLine == 14:
                 
@@ -148,8 +157,9 @@ def advanced_tokenized():
                 word_list.append(word)
             seqs[-1].append(word_list.index(word))
         
-        # Append the last word of the sequence to lastWordLst
+        # Append the last word of the sequence to lastWordLst, make sure we don't get a '#'
         lastWordsLst.append(ignore_punctuation(seqs[-1])[-1])
+        #print('new lastWordsLst:', lastWordsLst)
         countLine += 1
 
     #f.close()
@@ -164,14 +174,18 @@ def advanced_tokenized():
     for p in punctuation:
         syllable_counts[p] = 0
     
-    #print('len(word_list)', len(word_list), word_list[0])
+    print('len(word_list)', len(word_list), word_list[0])
+    #print('word_list:')
+    #for i in range(len(word_list)):
+    #    print(i, word_list[i])
+
     #print('len(seqs)', len(seqs), seqs[0])
     print('list of rhymes:', len(list_rhymes))
     #set_rhymes = []
     #for line in list_rhymes:
-        #print([word_list[x] for x in line])
-        #set_rhymes.append([word_list[x] for x in line])
-        #print(line)
+    #    print([word_list[x] for x in line])
+    #    #set_rhymes.append([word_list[x] for x in line])
+    #    print(line)
 
     return word_list, seqs, syllable_counts, list_rhymes
     

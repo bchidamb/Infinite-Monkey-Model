@@ -110,7 +110,7 @@ bs = 100
 start = time()
 
 character_model = multilayer_model(100, np.shape(X[0]), 128)
-character_model.fit(X, Y, epochs=ep, batch_size=bs, verbose=0)
+character_model.fit(X, Y, epochs=ep, batch_size=bs, verbose=1)
 
 end = time()
 
