@@ -54,8 +54,13 @@ def generate_phrase(HMM, word_list, syllable_counts, set_rhymes):
         line.append(word_list[aNum])
     line.reverse()
     line[0] = line[0].capitalize()
+    
+    punctuation = ['.', '!', ',', '?', ':', ';', '(', ')']
 
     phrase = " ".join(line)
+    for p in punctuation:
+        phrase = phrase.replace(' ' + p, p)
+    
     print(phrase)
 
     # Print the transition matrix.

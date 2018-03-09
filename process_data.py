@@ -52,8 +52,8 @@ def basic_tokenized():
 
     return word_list, seqs, syllable_counts
 
-def stripPunctuation(string):
-    lst = ['.', '!', ',', '?',':', ';', '(', ')']
+def stripBadPunctuation(string):
+    lst = ['(', ')']
     string1 = ''
     for s in string:
         if s not in lst:
@@ -77,7 +77,12 @@ def advanced_tokenized():
                       of word indices representing a line of Shakespeare.
                       Note: an index of -1 corresponds to end-padding
     '''
-    word_list = []
+    
+    punctuation = ['.', '!', ',', '?', ':', ';', '(', ')'] # not accounting for single quotes
+    def ignore_punctuation(lst):
+        return [i for i in lst if i >= len(punctuation)]
+        
+    word_list = punctuation[:]
     seqs = []
     list_rhymes = [] # list of lists, such that each list has rhymes
     # indices for the rhyme scheme that shakespeare uses:
@@ -86,23 +91,21 @@ def advanced_tokenized():
 
     # Load data into sequences
     f = open('data/shakespeare.txt', 'r')
-    #with os.path.join('data', 'shakespeare.txt') as f:
     countLine = 0 # count which line we are on for each sonnet
     lastWordsLst = [] # get the list of last words in each line
-
+    
     for line in f:
 
-        raw = stripPunctuation(line.strip()).split()
-        #print('raw:', raw)
+        raw = stripBadPunctuation(line).strip().split()
+            
         # Skip lines that aren't actually part of the Sonnets
         if len(raw) < 2:
             # if we get enough lines for our sonnet:
             if countLine == 14:
+                
                 rhymesLine = []
                 # make a list of the rhymes we found in our sonnet
                 for pair in rhymeInd:
-                    #print('pair', pair)
-                    #print('lastWordsLst', len(lastWordsLst), lastWordsLst)
                     rhymesLine.append([lastWordsLst[pair[0]], lastWordsLst[pair[1]]])
 
                 # go through all of the rhymes that we got from the current sonnet
@@ -115,19 +118,38 @@ def advanced_tokenized():
 
             countLine = 0
             lastWordsLst = []
-            #print('rhyme scheme assimilated!')
             continue
 
+        raw_punc = []
+        
+        # Separate any punctuation at the start or end of the word from the word itself
+        for w in raw:
+            if len(w) < 1:
+                continue
+            to_append = []
+            while len(w) > 0 and w[0] in punctuation:
+                raw_punc.append(w[0])
+                w = w[1:]
+            while len(w) > 0 and w[-1] in punctuation:
+                to_append.insert(0, w[-1])
+                w = w[:-1]
+                
+            raw_punc += [w] + to_append
+                
+        raw = raw_punc
+        
         # If we encounter a new word for the first time, add it to word_list
         seqs.append([])
         for word in raw:
+            # Automatically lower-case the first word in each line
+            if raw.index(word) == 0:
+                word = word.lower()
             if word not in word_list:
                 word_list.append(word)
             seqs[-1].append(word_list.index(word))
-
-        #print('last word seq', seqs[-1][-1])
-        lastWordsLst.append(seqs[-1][-1]) # append the last word of the sequence to lastWordLst
-        #print('lastWordsLst update', lastWordsLst)
+        
+        # Append the last word of the sequence to lastWordLst
+        lastWordsLst.append(ignore_punctuation(seqs[-1])[-1])
         countLine += 1
 
     #f.close()
@@ -139,7 +161,9 @@ def advanced_tokenized():
         raw = line.strip().split()
         #word_index = word_list.index(raw[0])
         syllable_counts[raw[0]] = raw[1:]
-
+    for p in punctuation:
+        syllable_counts[p] = 0
+    
     #print('len(word_list)', len(word_list), word_list[0])
     #print('len(seqs)', len(seqs), seqs[0])
     print('list of rhymes:', len(list_rhymes))
@@ -150,8 +174,8 @@ def advanced_tokenized():
         #print(line)
 
     return word_list, seqs, syllable_counts, list_rhymes
-
-
+    
+    
 # go through all of the rhymes that we've found so far total and add our rhymes to them
 # we're adding rhymes to list_rhymes
 def joinRhymeFamily(list_rhymes, rhymesLine):

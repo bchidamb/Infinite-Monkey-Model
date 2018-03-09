@@ -7,6 +7,7 @@
 ########################################
 
 import random
+import numpy as np
 
 class HiddenMarkovModel:
     '''
@@ -484,9 +485,9 @@ class HiddenMarkovModel:
         sonnet_line = len(self.sonnet)
         rhyme_word = ""
         if sonnet_line == 13:
-            rhyme_word = self.sonnet[-1][0]
+            rhyme_word = self.sonnet[-1][1]
         elif sonnet_line % 4 == 2 or sonnet_line % 4 == 3:
-            rhyme_word = self.sonnet[sonnet_line-2][0]
+            rhyme_word = self.sonnet[sonnet_line-2][1]
 
         if not rhyme_word == "":
 
@@ -524,13 +525,21 @@ class HiddenMarkovModel:
 
             states:     The randomly generated states as a list.
         '''
+        def sample(pdf):
+            return np.random.choice(np.arange(len(pdf)), p=np.array(pdf) / np.sum(pdf))
+        
+        # Sample the punctuation first
+        punctuation = ['.', '!', ',', '?', ':', ';', '(', ')']
 
-        emission = []
         state = random.choice(range(self.L))
         states = []
+        states.append(state)
+        emission = [sample(self.O[state][:len(punctuation)])]
+        
+        state = sample(self.A[state])
 
-        # Here first choose the rhyming word first
-        # Based on the previousl ines
+        # Here first choose the rhyming word second
+        # Based on the previous lines
         num_syllables = 0
         rhyme_word = self.choose_rhyme_word(rhyme_list)
         emission.append(rhyme_word)
