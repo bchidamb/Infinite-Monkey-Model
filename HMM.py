@@ -527,7 +527,6 @@ class HiddenMarkovModel:
         '''
         def sample(pdf):
             return np.random.choice(np.arange(len(pdf)), p=np.array(pdf) / np.sum(pdf))
-        
         # Sample the punctuation first
         punctuation = ['.', '!', ',', '?', ':', ';', '(', ')', '#']
 
@@ -535,7 +534,6 @@ class HiddenMarkovModel:
         states = []
         states.append(state)
         emission = [sample(self.O[state][:len(punctuation)])]
-        
         state = sample(self.A[state])
 
         # Here first choose the rhyming word second
@@ -589,7 +587,6 @@ class HiddenMarkovModel:
 
             # Increase the number of syllables as necessary
             num_syllables += syls
-
 
 
         #line = []

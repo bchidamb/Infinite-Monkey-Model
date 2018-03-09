@@ -54,14 +54,14 @@ def generate_phrase(HMM, word_list, syllable_counts, set_rhymes):
         line.append(word_list[aNum])
     line.reverse()
     line[0] = line[0].capitalize()
-    
+
     punctuation = ['.', '!', ',', '?', ':', ';', '(', ')','#']
 
     phrase = " ".join(line)
     for p in punctuation:
         phrase = phrase.replace(' ' + p, p)
         phrase = phrase.replace('#', '')
-    
+
     print(phrase)
 
     # Print the transition matrix.
@@ -91,5 +91,5 @@ if __name__ == '__main__':
     print('')
     print('')
 
-    HMM = unsupervised_learning(10, 100)
+    HMM = unsupervised_learning(7, 100)
     # Then predict some stuff using the observation and transition matrices
