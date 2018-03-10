@@ -42,7 +42,8 @@ def unsupervised_learning(n_states, N_iters):
 def generate_phrase(HMM, word_list, syllable_counts, set_rhymes):
 
     # Naive Method
-    #emission, lists = HMM.generate_emission(10)
+    #line_length = [8,9,10,11,12] # Account for punctuation in basic model
+    #emission, lists = HMM.generate_emission(random.choice(line_length))
 
     # With syllable counting
     emission, lists = HMM.generate_line(word_list, syllable_counts, set_rhymes)
