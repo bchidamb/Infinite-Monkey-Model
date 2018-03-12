@@ -137,8 +137,8 @@ def unsupervised_learning(n_states, N_iters, printPhrase=True, visSparsity=True)
     if visSparsity:
         visualize_sparsities(HMM, O_max_cols=50, O_vmax=0.1) 
         wordclouds = states_to_wordclouds(HMM, word_dict)
-        anim = animate_emission(HMM, word_dict)
-        HTML(anim.to_html5_video())
+        anim = animate_emission(HMM, word_dict, M=7)
+        #HTML(anim.to_html5_video())
 
     sonnet = []
     for i in range(14):
@@ -289,6 +289,8 @@ def animate_emission(hmm, obs_map, M=8, height=12, width=12, delay=1):
     # Animate!
     print('\nAnimating...')
     anim = FuncAnimation(fig, animate, frames=M+delay, interval=1000)
+    
+    plt.show()
 
     return anim
 
