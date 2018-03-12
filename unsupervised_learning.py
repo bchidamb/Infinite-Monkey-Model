@@ -14,6 +14,7 @@ import re
 from wordcloud import WordCloud
 from matplotlib import animation
 from matplotlib.animation import FuncAnimation
+from IPython.display import HTML
 
 # Wordcloud functions
 def mask():
@@ -48,6 +49,14 @@ def text_to_wordcloud(text, max_words=50, title='', show=True):
         plt.show()
 
     return wordcloud
+    
+def obs_map_reverser(obs_map):
+    obs_map_r = {}
+
+    for key in obs_map:
+        obs_map_r[obs_map[key]] = key
+
+    return obs_map_r
 
 def states_to_wordclouds(hmm, obs_map, max_words=50, show=True):
     # Initialize.
@@ -111,6 +120,10 @@ def unsupervised_learning(n_states, N_iters, printPhrase=True, visSparsity=True)
     #print('first 5 lines:', seqs[:100])
     #print(syllable_counts['thy'])
 
+    word_dict = {}
+    for i in range(len(word_list)):
+        word_dict[word_list[i]] = i
+
     # Train the HMM.
     """
             X:          A dataset consisting of input sequences in the form
@@ -123,6 +136,9 @@ def unsupervised_learning(n_states, N_iters, printPhrase=True, visSparsity=True)
     # visualize the sparsities of the matrices 
     if visSparsity:
         visualize_sparsities(HMM, O_max_cols=50, O_vmax=0.1) 
+        wordclouds = states_to_wordclouds(HMM, word_dict)
+        anim = animate_emission(HMM, word_dict)
+        HTML(anim.to_html5_video())
 
     sonnet = []
     for i in range(14):
@@ -175,6 +191,106 @@ def generate_phrase(HMM, word_list, syllable_counts, set_rhymes, printPhrase=Tru
     #     print(''.join("{:<12.3e}".format(HMM.O[i][j]) for j in range(len(HMM.O[i]))))
     # print('')
     # print('')
+    
+####################
+# HMM ANIMATION FUNCTIONS
+####################
+
+def animate_emission(hmm, obs_map, M=8, height=12, width=12, delay=1):
+    # Parameters.
+    lim = 1200
+    text_x_offset = 40
+    text_y_offset = 80
+    x_offset = 580
+    y_offset = 520
+    R = 420
+    r = 100
+    arrow_size = 20
+    arrow_p1 = 0.03
+    arrow_p2 = 0.02
+    arrow_p3 = 0.06
+    
+    # Initialize.
+    n_states = len(hmm.A)
+    obs_map_r = obs_map_reverser(obs_map)
+    wordclouds = states_to_wordclouds(hmm, obs_map, max_words=20, show=False)
+
+    # Initialize plot.    
+    fig, ax = plt.subplots()
+    fig.set_figheight(height)
+    fig.set_figwidth(width)
+    ax.grid('off')
+    plt.axis('off')
+    ax.set_xlim([0, lim])
+    ax.set_ylim([0, lim])
+
+    # Plot each wordcloud.
+    for i, wordcloud in enumerate(wordclouds):
+        x = x_offset + int(R * np.cos(np.pi * 2 * i / n_states))
+        y = y_offset + int(R * np.sin(np.pi * 2 * i / n_states))
+        ax.imshow(wordcloud.to_array(), extent=(x - r, x + r, y - r, y + r), aspect='auto', zorder=-1)
+
+    # Initialize text.
+    text = ax.text(text_x_offset, lim - text_y_offset, '', fontsize=24)
+        
+    # Make the arrows.
+    zorder_mult = n_states ** 2 * 100
+    arrows = []
+    for i in range(n_states):
+        row = []
+        for j in range(n_states):
+            # Arrow coordinates.
+            x_i = x_offset + R * np.cos(np.pi * 2 * i / n_states)
+            y_i = y_offset + R * np.sin(np.pi * 2 * i / n_states)
+            x_j = x_offset + R * np.cos(np.pi * 2 * j / n_states)
+            y_j = y_offset + R * np.sin(np.pi * 2 * j / n_states)
+            
+            dx = x_j - x_i
+            dy = y_j - y_i
+            d = np.sqrt(dx**2 + dy**2)
+
+            if i != j:
+                arrow = ax.arrow(x_i + (r/d + arrow_p1) * dx + arrow_p2 * dy,
+                                 y_i + (r/d + arrow_p1) * dy + arrow_p2 * dx,
+                                 (1 - 2 * r/d - arrow_p3) * dx,
+                                 (1 - 2 * r/d - arrow_p3) * dy,
+                                 color=(1 - hmm.A[i][j], ) * 3,
+                                 head_width=arrow_size, head_length=arrow_size,
+                                 zorder=int(hmm.A[i][j] * zorder_mult))
+            else:
+                arrow = ax.arrow(x_i, y_i, 0, 0,
+                                 color=(1 - hmm.A[i][j], ) * 3,
+                                 head_width=arrow_size, head_length=arrow_size,
+                                 zorder=int(hmm.A[i][j] * zorder_mult))
+
+            row.append(arrow)
+        arrows.append(row)
+
+    emission, states = hmm.generate_emission(M)
+
+    def animate(i):
+        if i >= delay:
+            i -= delay
+
+            if i == 0:
+                arrows[states[0]][states[0]].set_color('red')
+            elif i == 1:
+                arrows[states[0]][states[0]].set_color((1 - hmm.A[states[0]][states[0]], ) * 3)
+                arrows[states[i - 1]][states[i]].set_color('red')
+            else:
+                arrows[states[i - 2]][states[i - 1]].set_color((1 - hmm.A[states[i - 2]][states[i - 1]], ) * 3)
+                arrows[states[i - 1]][states[i]].set_color('red')
+
+            # Set text.
+            text.set_text(' '.join([obs_map_r[e] for e in emission][:i+1]).capitalize())
+
+            return arrows + [text]
+
+    # Animate!
+    print('\nAnimating...')
+    anim = FuncAnimation(fig, animate, frames=M+delay, interval=1000)
+
+    return anim
 
 
 
@@ -193,10 +309,10 @@ if __name__ == '__main__':
 
     sonnetStr = ''
     # trying it out with several generated poems so we get better word clouds    
-    for i in range(2):
-        sonnet = unsupervised_learning(7, 100, False, False)
-        for phrase in sonnet:
-            sonnetStr += phrase
+    #for i in range(1):
+    #    sonnet = unsupervised_learning(7, 100, False, False)
+    #    for phrase in sonnet:
+    #        sonnetStr += phrase
             
     sonnet = unsupervised_learning(7, 100)
     
