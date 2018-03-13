@@ -316,7 +316,7 @@ if __name__ == '__main__':
     #    for phrase in sonnet:
     #        sonnetStr += phrase
             
-    sonnet = unsupervised_learning(7, 100)
+    sonnet = unsupervised_learning(10, 100)
     
     for phrase in sonnet:
         sonnetStr += phrase
