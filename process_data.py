@@ -333,3 +333,111 @@ def character_onehot(n=40, s=5, ds=0):
             Y.append(int_to_onehot(ascii_values[s*i+n+ds], 128))
 
     return np.array(X), np.array(Y)
+
+    
+def build_wordlist():
+    '''
+    Arguments:
+        (none)
+    
+    Return:
+        word_list - a list of the unique words, including '\n'
+        seq -   A list of integers representing all input sonnets concatenated.
+                Each index corresponds to an entry in word_list.
+    '''
+    word_list = [] # we count newline as a word
+    pairs = []
+    seq = []
+    
+    punctuation = ['.', '!', ',', '?', ':', ';', '(', ')']
+
+    # Load data into a single sequence
+    f = open('data/shakespeare.txt', 'r')
+    for line in f:
+
+        line_nopunc = ''.join([c for c in line if c not in punctuation]).lower()
+        raw = line_nopunc.strip().split()
+        
+        # Skip lines that aren't actually part of the Sonnets
+        if len(raw) < 2:
+            continue
+
+        # If we encounter a new word for the first time, add it to word_list
+        for word in raw:
+            if word not in word_list:
+                word_list.append(word)
+            seq.append(word_list.index(word))
+
+    f.close()
+    
+    return word_list, seq
+
+
+def wordpair_onehot(word_list, seq, s=2):
+    '''
+    Returns pairs of words (onehot-encoded) as examples for word2vec
+
+    Arguments:
+        s - The second word in the pair is selected from the window i-s to i+s,
+            not including i itself, for a total of 2s examples per word
+
+    Return:
+        word_list   - A list of words where the index corresponding to a word
+                      is its word index
+        pairs       - A list of pairs of onehot encoded words
+    '''
+    
+    trainX = []
+    trainY = []
+    L = len(word_list)
+    
+    # Loop over each word in the word_list for the first word
+    for i, w in enumerate(seq):
+        
+        # Find the list of nearby words
+        l = max(0, i - s)
+        r = min(len(seq), i + 1 + s)
+        
+        near = seq[l:i] + seq[i+1:r]
+        
+        # Add each pair to X, Y
+        for w2 in near:
+            trainX.append(int_to_onehot(w, L))
+            trainY.append(int_to_onehot(w2, L))
+    
+    return np.array(trainX), np.array(trainY)
+    
+    
+def word_examples(word_list, seq, n=20, s=3, ds=0, onehot=True):
+    '''
+    Arguments:
+        n - the number of words per example
+        s - the spacing between successive examples
+        ds - offset of each example (change from default to obtain unique validation sets)
+        Note: 0 <= ds < s
+
+    Return:
+        X - A list of examples of length n
+        Y - A list of words that immediately follow
+        Note: both X and Y are one-hot encoded words
+    '''
+    X = []
+    Y = []
+    L = len(word_list)
+
+    # Generate samples of size n where successive samples are shifted by s
+    for i in range(len(seq) // s):
+        if s * i + n + ds < len(seq):
+            if onehot:
+                X.append([int_to_onehot(a, L) for a in seq[s*i+ds:s*i+n+ds]])
+                Y.append(int_to_onehot(seq[s*i+n+ds], L))
+            else:
+                X.append(seq[s*i+ds:s*i+n+ds])
+                Y.append(int_to_onehot(seq[s*i+n+ds], L))
+                # Y.append(seq[s*i+n+ds])
+    
+    if onehot:
+        return np.array(X), np.array(Y)
+    else:
+        return X, np.array(Y)
+    

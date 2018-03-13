@@ -1,0 +1,94 @@
+Using TensorFlow backend.
+(3231,) (17582,)
+105480 105480
+Epoch 1/15
+2018-03-12 18:51:19.362230: I C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\35\tensorflow\core\platform\cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX AVX2
+2018-03-12 18:51:20.252072: I C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\35\tensorflow\core\common_runtime\gpu\gpu_device.cc:1030] Found device 0 with properties:
+name: GeForce 940MX major: 5 minor: 0 memoryClockRate(GHz): 0.8605
+pciBusID: 0000:01:00.0
+totalMemory: 2.00GiB freeMemory: 1.66GiB
+2018-03-12 18:51:20.261483: I C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\35\tensorflow\core\common_runtime\gpu\gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce 940MX, pci bus id: 0000:01:00.0, compute capability: 5.0)
+105480/105480 [==============================] - 76s 722us/step - loss: 6.5556 - acc: 0.0278
+Epoch 2/15
+105480/105480 [==============================] - 66s 624us/step - loss: 6.4981 - acc: 0.0304
+Epoch 3/15
+105480/105480 [==============================] - 66s 629us/step - loss: 6.4571 - acc: 0.0328
+Epoch 4/15
+105480/105480 [==============================] - 67s 638us/step - loss: 6.7838 - acc: 0.0360
+Epoch 5/15
+105480/105480 [==============================] - 67s 635us/step - loss: 7.0971 - acc: 0.0421
+Epoch 6/15
+105480/105480 [==============================] - 66s 628us/step - loss: 7.1821 - acc: 0.0481
+Epoch 7/15
+105480/105480 [==============================] - 70s 662us/step - loss: 7.2500 - acc: 0.0502
+Epoch 8/15
+105480/105480 [==============================] - 66s 629us/step - loss: 7.2691 - acc: 0.0530
+Epoch 9/15
+105480/105480 [==============================] - 66s 624us/step - loss: 7.2689 - acc: 0.0559
+Epoch 10/15
+105480/105480 [==============================] - 67s 632us/step - loss: 7.2446 - acc: 0.0570
+Epoch 11/15
+105480/105480 [==============================] - 67s 633us/step - loss: 7.2225 - acc: 0.0577
+Epoch 12/15
+105480/105480 [==============================] - 66s 627us/step - loss: 7.1910 - acc: 0.0591
+Epoch 13/15
+105480/105480 [==============================] - 68s 642us/step - loss: 7.1648 - acc: 0.0589
+Epoch 14/15
+105480/105480 [==============================] - 67s 632us/step - loss: 7.1408 - acc: 0.0596
+Epoch 15/15
+105480/105480 [==============================] - 66s 622us/step - loss: 7.1278 - acc: 0.0594
+(3231, 100)
+(8771, 40, 100)
+Epoch 1/10
+8771/8771 [==============================] - 33s 4ms/step - loss: 7.0812 - acc: 0.0255
+Epoch 2/10
+8771/8771 [==============================] - 28s 3ms/step - loss: 6.4011 - acc: 0.0247
+Epoch 3/10
+8771/8771 [==============================] - 29s 3ms/step - loss: 6.3705 - acc: 0.0251
+Epoch 4/10
+8771/8771 [==============================] - 28s 3ms/step - loss: 6.3579 - acc: 0.0260
+Epoch 5/10
+8771/8771 [==============================] - 29s 3ms/step - loss: 6.3551 - acc: 0.0258
+Epoch 6/10
+8771/8771 [==============================] - 28s 3ms/step - loss: 6.3535 - acc: 0.0254
+Epoch 7/10
+8771/8771 [==============================] - 28s 3ms/step - loss: 6.3521 - acc: 0.0239
+Epoch 8/10
+8771/8771 [==============================] - 28s 3ms/step - loss: 6.3520 - acc: 0.0268
+Epoch 9/10
+8771/8771 [==============================] - 28s 3ms/step - loss: 6.3505 - acc: 0.0233
+Epoch 10/10
+8771/8771 [==============================] - 29s 3ms/step - loss: 6.3500 - acc: 0.0255
+Temperature 0.25
+from fairest creatures we desire increase that thereby beauty's rose might never die but as the riper should by time decease his tender heir might bear his memory but thou contracted to thine own bright eyes feed'st thy light's flame to and the of to the and to i and and the and to to the to to and and to that the and i the and thy in and of and and of to to to that and to to and the and thou to the that and and the and to to and the and in to that and and my to to of and that in and the the and the of to that that the of and and i it thou and my of and to to to the the to to the in and and
+Temperature 0.75
+from fairest creatures we desire increase that thereby beauty's rose might never die but as the riper should by time decease his tender heir might bear his memory but thou contracted to thine own bright eyes feed'st thy light's flame do of they of but rich thee but gives fortune's after me to a dedicated i by and and me clerk doth loved but his thou steal i the which to when his or is that or my to and thee your with upon as to appear hence and holds thy heaven dead fair to his me in your age not her unkind his when as and lark that other the true to to your holy self pleasure time self he of your a i and you to to golden when which thee of thou my not if to which
+Temperature 1.0
+from fairest creatures we desire increase that thereby beauty's rose might never die but as the riper should by time decease his tender heir might bear his memory but thou contracted to thine own bright eyes feed'st thy light's flame pursuit it fee in is befits annexed new lov'st my believe of with of set red flies answer first to but yet is disgrace his spent i it abuse of on thou bones make is away and to praise before excellence rose that me speed art me before hell 'had thee forth throned you the new me travelled willingly that star the or swear it teach each the might worse thy which for thought all not great to his termed shall in kingdom what love in age form but so four mother's how in yet cruel thee o speed alone
+Temperature 1.5
+from fairest creatures we desire increase that thereby beauty's rose might never die but as the riper should by time decease his tender heir might bear his memory but thou contracted to thine own bright eyes feed'st thy light's flame fear no our perusal your or absence fitted like hems unused ill he workings heat suborned plead sense go into thee sweetest soul's creation lay do hearts verse sweets content with his roses to be haply spite than pitiful my widow swearing where and long show doubting paws by plague should rest such blood treasure hand poverty leave tears those rack honour steepy may praise wills scythe art heaven and compeers yet these drugs they feeds black tickled we young victories fortify appear to nature thee measured shall are my breathed methinks and mine body still smiling died that admitted
+Model 1 Train Perplexity score: 538.192302259
+Model 1 Test Perplexity score: 1230.13457484
+(3231,) (17582,)
+Epoch 1/10
+8771/8771 [==============================] - 66s 8ms/step - loss: 7.0563 - acc: 0.0204
+Epoch 2/10
+8771/8771 [==============================] - 52s 6ms/step - loss: 6.4679 - acc: 0.0261
+Epoch 3/10
+8771/8771 [==============================] - 53s 6ms/step - loss: 6.4227 - acc: 0.0250
+Epoch 4/10
+8771/8771 [==============================] - 54s 6ms/step - loss: 6.4106 - acc: 0.0239
+Epoch 5/10
+8771/8771 [==============================] - 53s 6ms/step - loss: 6.4058 - acc: 0.0262
+Epoch 6/10
+8771/8771 [==============================] - 54s 6ms/step - loss: 6.4065 - acc: 0.0260
+Epoch 7/10
+8771/8771 [==============================] - 60s 7ms/step - loss: 6.4090 - acc: 0.0241
+Epoch 8/10
+8771/8771 [==============================] - 57s 6ms/step - loss: 6.4094 - acc: 0.0268
+Epoch 9/10
+8771/8771 [==============================] - 53s 6ms/step - loss: 6.4063 - acc: 0.0285
+Epoch 10/10
+8771/8771 [==============================] - 52s 6ms/step - loss: 6.4058 - acc: 0.0262
+Model 2 Train Perplexity score: 544.653990999
+Model 2 Test Perplexity score: 1435.8983932
